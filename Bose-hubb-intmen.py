@@ -3,10 +3,10 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 # Parameters for Bose Hubbard Model
-t=0.1            # hopping strength
-U=2              # Potential interaction
+t= 1            # hopping strength
+U= 100             # Potential interaction
 mu=3             # Chemical Potential
-N=3              # Number of Bosons
+N=5             # Number of Bosons
 M=5              # Number of Lattice Sites
 
 # Create the Hamiltonian in parts
@@ -22,16 +22,8 @@ site_hop_ops = [tensor([create(N) if i==j else destroy(N) if i==j+1 else qeye(N)
 h_t =sum(site_hop_ops)
 h_t = h_t + h_t.dag()
 
-# Strong Interaction Limit (t=0)
-# Total Hamiltonian for strongly interacting limit
-H_strongly_interacting_limit = (U/2)*h_U - mu*h_mu
-
-
-
-# Weak Interaction Limit (U=0)
-# Total Hamiltonian for weak interacting limit
-H_weak_interacting_limit = -t*h_t - mu*h_mu
-
-
 #Intermediate Regime 
-H = -t*h_t +(U/2)*h_U - mu*h_mu
+def H(t,U,mu):
+     return -t*h_t +(U/2)*h_U - mu*h_mu
+
+print(H(t,U,mu).groundstate()[0])
