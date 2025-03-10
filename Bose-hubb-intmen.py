@@ -3,11 +3,11 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 # Parameters for Bose Hubbard Model
-t= 1            # hopping strength
-U= 100             # Potential interaction
-mu=3             # Chemical Potential
-N=5             # Number of Bosons
-M=5              # Number of Lattice Sites
+t= 1              # hopping strength
+U= 10             # Potential interaction
+mu=3              # Chemical Potential
+N=3               # Number of Bosons
+M=5               # Number of Lattice Sites
 
 # Create the Hamiltonian in parts
 # Chemical Potential Term
@@ -26,4 +26,32 @@ h_t = h_t + h_t.dag()
 def H(t,U,mu):
      return -t*h_t +(U/2)*h_U - mu*h_mu
 
-print(H(t,U,mu).groundstate()[0])
+# Variation of Energy with U
+U_list = np.linspace(0,100,100)
+E = []
+for u in U_list:
+    E.append(H(t,u,mu).groundstate()[0])
+plt.plot(U_list,E)
+plt.xlabel('U')
+plt.ylabel('Energy')     # Energy vs U plot
+plt.show()
+
+# Variation of Energy with mu
+mu_list = np.linspace(0,10,100)
+E = []
+for m in mu_list:
+    E.append(H(t,U,m).groundstate()[0])
+plt.plot(mu_list,E)
+plt.xlabel('mu')
+plt.ylabel('Energy')     # Energy vs mu plot
+plt.show()
+
+# Variation of Energy with t
+t_list = np.linspace(0,10,100)
+E = []
+for i in t_list:
+    E.append(H(i,U,mu).groundstate()[0])
+plt.plot(t_list,E)
+plt.xlabel('t')
+plt.ylabel('Energy')     # Energy vs t plot
+plt.show()
