@@ -3,10 +3,10 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 # Parameters for Bose Hubbard Model
-t = 1              # hopping strength
-U =  2           # Potential interaction
-mu = 3              # Chemical Potential
-N = 4              # Number of Bosons
+t = 0.02              # hopping strength
+U =  1           # Potential interaction
+mu = 5              # Chemical Potential
+N = 5              # Number of Bosons
 M = 5               # Number of Lattice Sites
 
 # Create the Hamiltonian in parts
@@ -27,29 +27,20 @@ def H(t,U,mu):
      return -t*h_t +(U/2)*h_U - mu*h_mu
 
 # Density of states at each site
-num_of_bosons_at_site1 = tensor([num(N) if i==0 else qeye(N) for i in range(M)])
+#num_of_bosons_at_site1 = tensor([num(N) if i==0 else qeye(N) for i in range(M)])
 num_of_bosons_at_site2 = tensor([num(N) if i==1 else qeye(N) for i in range(M)])
-num_of_bosons_at_site3 = tensor([num(N) if i==2 else qeye(N) for i in range(M)])
-num_of_bosons_at_site4 = tensor([num(N) if i==3 else qeye(N) for i in range(M)])
-num_of_bosons_at_site5 = tensor([num(N) if i==4 else qeye(N) for i in range(M)])
-num_of_bosons_at_site6 = tensor([num(N) if i==5 else qeye(N) for i in range(M)])
+#num_of_bosons_at_site3 = tensor([num(N) if i==2 else qeye(N) for i in range(M)])
+#num_of_bosons_at_site4 = tensor([num(N) if i==3 else qeye(N) for i in range(M)])
+#num_of_bosons_at_site5 = tensor([num(N) if i==4 else qeye(N) for i in range(M)])
+#num_of_bosons_at_site6 = tensor([num(N) if i==5 else qeye(N) for i in range(M)])
 
 #Variation of average boson number with chemical potential
-mu_list = np.linspace(0,20,50)
-n1 = [expect(num_of_bosons_at_site1, H(t,U,mu).groundstate()[1]) for mu in mu_list]
-n2 = [expect(num_of_bosons_at_site2, H(t,U,mu).groundstate()[1]) for mu in mu_list]
-n3 = [expect(num_of_bosons_at_site3, H(t,U,mu).groundstate()[1]) for mu in mu_list]
-n4 = [expect(num_of_bosons_at_site4, H(t,U,mu).groundstate()[1]) for mu in mu_list]
-n5 = [expect(num_of_bosons_at_site5, H(t,U,mu).groundstate()[1]) for mu in mu_list]
-n6 = [expect(num_of_bosons_at_site6, H(t,U,mu).groundstate()[1]) for mu in mu_list]
-plt.plot(mu_list,n1,label='Site 1')
-plt.plot(mu_list,n2,label='Site 2')
-plt.plot(mu_list,n3,label='Site 3')
-plt.plot(mu_list,n4,label='Site 4')
-plt.plot(mu_list,n5,label='Site 5')
-plt.plot(mu_list,n6,label='Site 6')
-plt.xlabel('Chemical Potential')
+var_list = np.linspace(0,5,50)
+n2 = [expect(num_of_bosons_at_site2, H(t,U,mu).groundstate()[1]) for t in var_list]
+
+plt.plot(var_list,n2)
+plt.title(r'Average Boson Number at a Site for U=1,$\mu=5$,Number of Bosons=4,Number of Sites=4')
+plt.xlabel(r'Hoping Strength ($t$)')
 plt.ylabel('Average boson number')
-plt.legend()
 plt.show()
 
