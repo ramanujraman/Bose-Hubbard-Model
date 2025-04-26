@@ -3,11 +3,11 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 # Parameters for Bose Hubbard Model
-t = 0.02              # hopping strength
+t = 0.01            # hopping strength
 U =  1           # Potential interaction
 mu = 5              # Chemical Potential
-N = 5              # Number of Bosons
-M = 5               # Number of Lattice Sites
+N = 4              # Number of Bosons
+M = 3               # Number of Lattice Sites
 
 # Create the Hamiltonian in parts
 # Chemical Potential Term
@@ -36,11 +36,11 @@ num_of_bosons_at_site2 = tensor([num(N) if i==1 else qeye(N) for i in range(M)])
 
 #Variation of average boson number with chemical potential
 var_list = np.linspace(0,5,50)
-n2 = [expect(num_of_bosons_at_site2, H(t,U,mu).groundstate()[1]) for t in var_list]
+n2 = [expect(num_of_bosons_at_site2, H(t,U,mu).groundstate()[1]) for mu in var_list]
 
 plt.plot(var_list,n2)
-plt.title(r'Average Boson Number at a Site for U=1,$\mu=5$,Number of Bosons=4,Number of Sites=4')
-plt.xlabel(r'Hoping Strength ($t$)')
+plt.title(r'Average Boson Number at a Site for U=1,$t=0.02$,Number of Bosons=3,Number of Sites=3')
+plt.xlabel(r'Chemical Potential ($\mu$)')
 plt.ylabel('Average boson number')
 plt.show()
 
